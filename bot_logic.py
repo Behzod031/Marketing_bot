@@ -16,7 +16,7 @@ from aiogram.fsm.state import StatesGroup, State
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-
+# ========== Состояния ==========
 class UserState(StatesGroup):
     waiting_for_language = State()
     waiting_for_name = State()
@@ -27,7 +27,7 @@ class AdminState(StatesGroup):
     waiting_for_photo = State()
     waiting_for_catalog = State()
 
-
+# ========== Google Sheets ==========
 def get_setting(worksheet, bot_name: str, key: str) -> str:
     data = worksheet.get_all_values()
     for row in data:
@@ -43,7 +43,7 @@ def set_setting(worksheet, bot_name: str, key: str, value: str):
             return
     worksheet.append_row([bot_name, key, value])
 
-
+# ========== Основная логика ==========
 def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
     router = Router()
 
@@ -65,10 +65,10 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
     async def start_handler(message: types.Message, state: FSMContext):
         await state.set_state(UserState.waiting_for_language)
         language_keyboard = ReplyKeyboardMarkup(
-            keyboard=[[KeyboardButton(text="🇺🇿 O'zbekcha"), KeyboardButton(text="🇷🇸 Русский")]],
+            keyboard=[[KeyboardButton(text="🇺🇿 O'zbekcha"), KeyboardButton(text="🇷🇺 Русский")]],
             resize_keyboard=True
         )
-        text = "Assalomu alaykum\n🇺🇿 Iltimos, tilni tanlang\n🇷🇸 Пожалуйста, выберите язык"
+        text = "Assalomu alaykum!\n\n🇺🇿 Iltimos, tilni tanlang\n🇷🇺 Пожалуйста, выберите язык"
         await message.answer(text, reply_markup=language_keyboard)
 
     @router.message(UserState.waiting_for_language, F.text.in_(["🇺🇿 O'zbekcha", "🇷🇺 Русский"]))
@@ -76,8 +76,9 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         selected_language = message.text
         await state.update_data(language=selected_language)
 
+        # Отправка фото
         photo_id = get_setting(worksheet_settings, bot_name_in_sheet, "photo_id")
-        project_text = PROJECT_DESCRIPTION.get(selected_language, "Описание проекта недоступно на выбранном языке.")
+        project_text = PROJECT_DESCRIPTION.get(selected_language, "Описание проекта недоступно.")
         if photo_id:
             await message.answer_photo(photo_id, caption=project_text)
         else:
@@ -91,7 +92,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
 
     @router.message(UserState.waiting_for_language)
     async def invalid_language(message: types.Message, state: FSMContext):
-        text = "Пожалуйста, выберите язык, нажав соответствующую кнопку.\nIltimos, tugmani bosing."
+        text = "❗ Iltimos, tilni tugma orqali tanlang.\nПожалуйста, выберите язык кнопкой."
         await message.answer(text)
 
     @router.message(UserState.waiting_for_name)
@@ -99,6 +100,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         user_data = await state.get_data()
         language = user_data["language"]
         await state.update_data(name=message.text)
+
         contact_keyboard = ReplyKeyboardMarkup(
             keyboard=[[KeyboardButton(text=LANGUAGES[language]["contact_button"], request_contact=True)]],
             resize_keyboard=True
@@ -109,21 +111,40 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
     @router.message(UserState.waiting_for_phone)
     async def handle_phone(message: types.Message, state: FSMContext):
         user_data = await state.get_data()
-        language = user_data.get("language", "🇷🇺 Русский")
+        language = user_data.get("language", "🇺🇿 O'zbekcha")
         name = user_data["name"]
 
         phone = ""
+
+        # Контакт через кнопку
         if message.contact:
             phone = message.contact.phone_number
+
+        # Ввод вручную
         elif message.text:
-            phone = message.text.strip()
-            if not phone.startswith("+") or len(phone) < 9:
-                await message.answer(LANGUAGES[language]["phone_reminder"])
+            raw_input = message.text.strip()
+            cleaned = raw_input.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+            number_only = cleaned.lstrip("+")
+
+            if not number_only.isdigit() or not (9 <= len(number_only) <= 15):
+                example = "<code>998901234567</code> yoki <code>330391330</code>"
+                await message.answer(
+                    f"📢 Iltimos, faqat raqam yuboring. Belgilarsiz, smajliksiz.\nMisol uchun: {example}",
+                    parse_mode="HTML"
+                )
                 return
+
+            phone = cleaned if cleaned.startswith("+") else f"+{number_only}"
+
         else:
-            await message.answer(LANGUAGES[language]["phone_reminder"])
+            example = "<code>998901234567</code> yoki <code>330391330</code>"
+            await message.answer(
+                f"📢 Iltimos, telefon raqamingizni to'g'ri yuboring:\nMisol uchun: {example}",
+                parse_mode="HTML"
+            )
             return
 
+        # Сохраняем в таблицу
         worksheet_users.append_row([
             name,
             phone,
@@ -133,13 +154,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         thank_you_text = LANGUAGES[language].get("thank_you_text", "Спасибо за интерес!")
         await message.answer(thank_you_text)
 
-        photo_id = get_setting(worksheet_settings, bot_name_in_sheet, "photo_id")
-        if photo_id:
-            project_text = PROJECT_DESCRIPTION.get(language, "Описание недоступно.")
-            await message.answer_photo(photo_id, caption=project_text)
-        else:
-            await message.answer("❌ Фото не загружено.")
-
+        # Кнопка получения каталога
         catalog_keyboard = ReplyKeyboardMarkup(
             keyboard=[[KeyboardButton(text=LANGUAGES[language]["get_catalog_button"])]],
             resize_keyboard=True
@@ -162,6 +177,6 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
                 await message.answer("❌ Каталог не загружен.")
             await state.clear()
         else:
-            await message.answer("Пожалуйста, нажмите кнопку для получения каталога.")
+            await message.answer("📁 Пожалуйста, нажмите кнопку для получения каталога.")
 
     dp.include_router(router)
