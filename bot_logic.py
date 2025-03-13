@@ -68,7 +68,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
             keyboard=[[KeyboardButton(text="🇺🇿 O'zbekcha"), KeyboardButton(text="🇷🇸 Русский")]],
             resize_keyboard=True
         )
-        text = "Assalomu alaykun\ud83d\ude0a:\n\n🇺🇿 Iltimos, tilni tanlang\n🇷🇸 Пожалуйста, выберите язык"
+        text = "Assalomu alaykum\n🇺🇿 Iltimos, tilni tanlang\n🇷🇸 Пожалуйста, выберите язык"
         await message.answer(text, reply_markup=language_keyboard)
 
     @router.message(UserState.waiting_for_language, F.text.in_(["🇺🇿 O'zbekcha", "🇷🇺 Русский"]))
