@@ -1,6 +1,6 @@
 BOTS_CONFIG = {
     "bot1": {
-        "TOKEN": "7643301934:AAFerNWoBwEXztvaFoBqPWheYFhfPGSEuTk",
+        "TOKEN": "7994469536:AAEBVXVAjK-UXE5rjPe4r2Ck11A1ZQ8F6p8",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
