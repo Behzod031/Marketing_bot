@@ -29,11 +29,11 @@ QULAYLIKLAR:
                 "get_catalog_prompt": "Katalogni olish uchun quyidagi tugmani bosing 👇🏻",
                 "get_catalog_button": " Katalogni olish",
                 "catalog_reminder": " Siz katalogni olishni unutdingiz.",
-                "catalog_info": "Ushbu onlayn katalog orqali o’zingizga mos xonadon rejasini tanlashingiz mumkin ",
+                "catalog_info": "Loyihamiz haqida batafsil ma'lumot olishni istaysizmi? Menejerlarimiz siz bilan bog'lanib, barcha savollaringizga javob beradilar. Iltimos, o'z kontaktlaringizni qoldiring",
                 "thank_you_text": (
                     " Loyihamizga bo'lgan qiziqishingiz uchun rahmat!\n"
                     " Tez orada menejerlarimiz siz bilan bog'lanadi!\n\n"
-                    " Hozircha loyihaning afzalliklari bilan tanishib, onlayn-katalogni yuklab olishingiz mumkin!"
+                    " Hozircha loyihaning afzalliklari bilan onlayn-katalog orqali tanishib olishingiz mumkin!"
                 )
             }
         }
@@ -69,11 +69,11 @@ QULAYLIKLAR:
                 "get_catalog_prompt": "Katalogni olish uchun pastdagi tugmani bosing 👇🏻",
                 "get_catalog_button": " Katalogni olish",
                 "catalog_reminder": " Siz katalogni olishni unutdingiz.",
-                "catalog_info": "Ushbu onlayn katalog orqali o’zingizga mos xonadon rejasini tanlashingiz mumkin.",
+                "catalog_info": "Loyihamiz haqida batafsil ma'lumot olishni istaysizmi? Menejerlarimiz siz bilan bog'lanib, barcha savollaringizga javob beradilar. Iltimos, o'z kontaktlaringizni qoldiring",
                 "thank_you_text": (
                     "️ Loyihamizga bo'lgan qiziqishingiz uchun rahmat!\n"
                     " Tez orada menejerlarimiz siz bilan bog'lanadi!\n\n"
-                    " Hozircha loyihaning afzalliklari bilan tanishib, onlayn-katalogni yuklab olishingiz mumkin!"
+                    " Hozircha loyihaning afzalliklari bilan onlayn-katalog orqali tanishib olishingiz mumkin!"
                 )
             }
         }
@@ -110,11 +110,11 @@ QULAYLIKLAR:
                 "get_catalog_prompt": "Katalogni olish uchun pastdagi tugmani bosing 👇🏻",
                 "get_catalog_button": " Katalogni olish",
                 "catalog_reminder": " Siz katalogni olishni unutdingiz.",
-                "catalog_info": "Ushbu onlayn katalog orqali o’zingizga mos xonadon rejasini tanlashingiz mumkin.",
+                "catalog_info": "Loyihamiz haqida batafsil ma'lumot olishni istaysizmi? Menejerlarimiz siz bilan bog'lanib, barcha savollaringizga javob beradilar. Iltimos, o'z kontaktlaringizni qoldiring",
                 "thank_you_text": (
                     " Loyihamizga bo'lgan qiziqishingiz uchun rahmat!\n"
                     " Tez orada menejerlarimiz siz bilan bog'lanadi!\n\n"
-                    " Hozircha loyihaning afzalliklari bilan tanishib, onlayn-katalogni yuklab olishingiz mumkin!"
+                    " Hozircha loyihaning afzalliklari bilan onlayn-katalog orqali tanishib olishingiz mumkin!"
                 )
             }
         }
@@ -153,11 +153,11 @@ QULAYLIKLAR:
                 "get_catalog_prompt": "Katalogni olish uchun pastdagi tugmani bosing 👇🏻",
                 "get_catalog_button": " Katalogni olish",
                 "catalog_reminder": " Siz katalogni olishni unutdingiz.",
-                "catalog_info": "Ushbu onlayn katalog orqali o’zingizga mos xonadon rejasini tanlashingiz mumkin.",
+                "catalog_info": "Loyihamiz haqida batafsil ma'lumot olishni istaysizmi? Menejerlarimiz siz bilan bog'lanib, barcha savollaringizga javob beradilar. Iltimos, o'z kontaktlaringizni qoldiring",
                 "thank_you_text": (
                     "️ Loyihamizga bo'lgan qiziqishingiz uchun rahmat!\n"
                     " Tez orada menejerlarimiz siz bilan bog'lanadi!\n\n"
-                    " Hozircha loyihaning afzalliklari bilan tanishib, onlayn-katalogni yuklab olishingiz mumkin!"
+                    " Hozircha loyihaning afzalliklari bilan onlayn-katalog orqali tanishib olishingiz mumkin!"
                 )
             }
         }
@@ -197,7 +197,7 @@ QULAYLIKLAR:
                 "thank_you_text": (
                     " Loyihamizga bo'lgan qiziqishingiz uchun rahmat!\n"
                     " Tez orada menejerlarimiz siz bilan bog'lanadi!\n\n"
-                    " Hozircha loyihaning afzalliklari bilan onlayn-katalogni orqali tanishib olishingiz mumkin!"
+                    " Hozircha loyihaning afzalliklari bilan onlayn-katalog orqali tanishib olishingiz mumkin!"
                 )
             }
         }
