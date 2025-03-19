@@ -111,7 +111,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
             cleaned = raw_input.replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
             number_only = cleaned.lstrip("+")
             if not number_only.isdigit() or not (9 <= len(number_only) <= 15):
-                example = "<code>998901234567</code> yoki <code>330391330</code>"
+                example = "<code>998901234567</code> yoki <code>901234567</code>"
                 await message.answer(
                     f"Iltimos, faqat raqam yuboring. Misol: {example}",
                     parse_mode="HTML"
