@@ -1,6 +1,6 @@
 BOTS_CONFIG = {
     "bot1": {
-        "TOKEN": "7643301934:AAE46xNn9wjyOCP-NvmkKaFKJzJ1TNfc3UY",
+        "TOKEN": "7768955458:AAGKNAKFVyKvvxiMlTu5MsibsUnEBE-YSNk",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
@@ -40,7 +40,7 @@ QULAYLIKLAR:
     },
 
     "bot2": {
-        "TOKEN": "7994469536:AAETlwVouESZUSfGFHRZO64eOFWTOKK5KJo",
+        "TOKEN": "8064947587:AAEAsEYhPOQct2ay4x7rnE2eeqIgg1_V8BQ",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
@@ -80,7 +80,7 @@ QULAYLIKLAR:
     },
 
     "bot3": {
-        "TOKEN": "7630260930:AAEBUVTxmare3MPkvdBowCLeqj2f0y11lkI",
+        "TOKEN": "7664633048:AAG3FCJgxows0ZPsR7ahKtOpAI85bNYIykE",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
@@ -121,7 +121,7 @@ QULAYLIKLAR:
     },
 
     "bot4": {
-        "TOKEN": "8086632445:AAEQ8fjMrPJSHcS-nA7ycmc-XsYLDcnYYJc",
+        "TOKEN": "7933332336:AAHv4LTVm7aL1iGP3pSE10xB6Ef4_xxfFzs",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
@@ -164,7 +164,7 @@ QULAYLIKLAR:
     },
 
     "bot5": {
-        "TOKEN": "7721300481:AAGvBF4fs3MDHYReqUtmREIxMFSZ3V3TYXQ",
+        "TOKEN": "7920744725:AAFyuhJJG0a-NGeqpjbQkuOeJWi6oiLNy0I",
         "ADMIN_ID": 508846258,
         "SERVICE_ACCOUNT_FILE": "credentials.json",
         "SPREADSHEET_NAME": "Marketing_bot",
