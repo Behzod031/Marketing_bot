@@ -129,7 +129,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         worksheet_users.append_row([
             name,
             phone,
-            datetime.datetime.utcnow().strftime("%m-%d")
+            datetime.datetime.utcnow().strftime("%m-%d-%Y")
         ])
 
         await message.answer(MESSAGES["thank_you_text"], reply_markup=ReplyKeyboardRemove())
