@@ -19,9 +19,9 @@ logging.basicConfig(level=logging.INFO)
 # ========== Состояния ==========
 
 class UserState(StatesGroup):
+    waiting_for_catalog = State()
     waiting_for_name = State()
     waiting_for_phone = State()
-    waiting_for_catalog = State()
 
 # ========== Google Sheets ==========
 
@@ -61,10 +61,31 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         if photo_id:
             await message.answer_photo(photo_id, caption=PROJECT_DESCRIPTION)
         else:
-            await message.answer("❌ Foto topilmadi.")
+            await message.answer("Foto topilmadi.")
 
-        await state.set_state(UserState.waiting_for_name)
-        await message.answer(MESSAGES["name_prompt"], reply_markup=ReplyKeyboardRemove())
+        # Кнопка для скачивания каталога
+        keyboard = ReplyKeyboardMarkup(
+            keyboard=[[KeyboardButton(text=MESSAGES["get_catalog_button"])]],
+            resize_keyboard=True
+        )
+        await state.set_state(UserState.waiting_for_catalog)
+        await message.answer(MESSAGES["get_catalog_prompt"], reply_markup=keyboard)
+
+    @router.message(UserState.waiting_for_catalog)
+    async def send_catalog(message: types.Message, state: FSMContext):
+        if message.text.strip().lower() == MESSAGES["get_catalog_button"].strip().lower():
+            catalog_id = get_setting(worksheet_settings, bot_name_in_sheet, "catalog_id")
+            if catalog_id:
+                await message.answer_document(catalog_id)
+            else:
+                await message.answer("Katalog topilmadi.")
+
+            # Запрос контактных данных после отправки каталога
+            await state.set_state(UserState.waiting_for_name)
+            await message.answer(MESSAGES["catalog_info"], reply_markup=ReplyKeyboardRemove())
+            await message.answer(MESSAGES["name_prompt"])
+        else:
+            await message.answer("Katalogni olish uchun tugmani bosing.")
 
     @router.message(UserState.waiting_for_name)
     async def name_handler(message: types.Message, state: FSMContext):
@@ -92,7 +113,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
             if not number_only.isdigit() or not (9 <= len(number_only) <= 15):
                 example = "<code>998901234567</code> yoki <code>330391330</code>"
                 await message.answer(
-                    f"📢 Iltimos, faqat raqam yuboring. Misol: {example}",
+                    f"Iltimos, faqat raqam yuboring. Misol: {example}",
                     parse_mode="HTML"
                 )
                 return
@@ -100,7 +121,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
         else:
             example = "<code>998901234567</code> yoki <code>330391330</code>"
             await message.answer(
-                f"📢 Iltimos, telefon raqamingizni to'g'ri yuboring:\nMisol: {example}",
+                f"Iltimos, telefon raqamingizni to'g'ri yuboring:\nMisol: {example}",
                 parse_mode="HTML"
             )
             return
@@ -111,26 +132,7 @@ def setup_bot_handlers(dp: Dispatcher, bot_config: dict):
             datetime.datetime.utcnow().strftime("%m-%d")
         ])
 
-        await message.answer(MESSAGES["thank_you_text"])
-
-        keyboard = ReplyKeyboardMarkup(
-            keyboard=[[KeyboardButton(text=MESSAGES["get_catalog_button"])]],
-            resize_keyboard=True
-        )
-        await state.set_state(UserState.waiting_for_catalog)
-        await message.answer(MESSAGES["get_catalog_prompt"], reply_markup=keyboard)
-
-    @router.message(UserState.waiting_for_catalog)
-    async def send_catalog(message: types.Message, state: FSMContext):
-        if message.text == MESSAGES["get_catalog_button"]:
-            catalog_id = get_setting(worksheet_settings, bot_name_in_sheet, "catalog_id")
-            if catalog_id:
-                await message.answer_document(catalog_id)
-                await message.answer(MESSAGES["catalog_info"])
-            else:
-                await message.answer("❌ Katalog topilmadi.")
-            await state.clear()
-        else:
-            await message.answer("📁 Katalogni olish uchun tugmani bosing.")
+        await message.answer(MESSAGES["thank_you_text"], reply_markup=ReplyKeyboardRemove())
+        await state.clear()
 
     dp.include_router(router)
